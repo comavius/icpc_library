@@ -1,8 +1,8 @@
 template<typename G> struct HLD {
    int n;
    G& g;
-   vector<int> sub, in, out, head, rev, par, d;
-   HLD(G& g) : n(si(g)), g(g), sub(n), in(n), out(n), head(n), rev(n), par(n), d(n) {}
+   vector<int> sub, in, out, head, tail, rev, par, d;
+   HLD(G& g) : n(si(g)), g(g), sub(n), in(n), out(n), head(n), tail(n), rev(n), par(n), d(n) {}
    void dfs1(int x, int p) {
       par[x] = p;
       sub[x] = 1;
@@ -23,6 +23,7 @@ template<typename G> struct HLD {
          head[e] = (g[x][0] == e ? head[x] : e);
          dfs2(e, x, t);
       }
+      tail[x] = sub[x] > 1 ? tail[g[x][0]] : x;
       out[x] = t;
    }
    void build() {
