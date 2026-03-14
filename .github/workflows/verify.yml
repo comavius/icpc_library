@@ -15,15 +15,8 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
+    - uses: cachix/install-nix-action@v31
       with:
-        python-version: '3.x'
-        cache: 'pip'
-    
-    - name: Install dependencies
-      run: |
-        pip install -U pip setuptools
-        pip install -r requirements.txt
+        nix_path: nixpkgs=channel:nixos-unstable
 
-    - run: oj-verify run
+    - run: nix run ".#oj-verify" run
