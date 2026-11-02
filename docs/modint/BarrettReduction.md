@@ -8,10 +8,12 @@ documentation_of: //src/modint/BarrettReduction.hpp
 
 ## 使い方
 
-- `Barrett br(mod)`：Barrett Reduction を準備する．
-    - 制約：`mod < 2^32`
+- `Barret br(mod)`：Barrett Reduction を準備する．
+    - 制約：`1 <= mod < 2^32`。法1の結果は0。
 - `u64 br.mul(u64 a, u64 b)`：`a * b % mod` を計算する．
     - 制約：`a * b < 2^64`
+
+同ヘッダのmintは法998244353用。累乗の指数は非負、逆元・除算の入力は非零とする。法0や逆元のない入力は対象外で、競技用実装に検査コードは追加しない。
 
 ## 仕組み
 

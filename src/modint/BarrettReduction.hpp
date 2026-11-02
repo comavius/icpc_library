@@ -8,7 +8,7 @@ struct Barret {
       U x = ((__uint128_t)a * im) >> 64;
       a -= x * m;
       if((ll)a < 0) a += m;
-      return a;
+      return m == 1 ? 0 : a;
    }
 };
 
