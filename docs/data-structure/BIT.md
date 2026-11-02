@@ -13,5 +13,8 @@ documentation_of: //src/data-structure/BIT.hpp
 - `void add(ll i, ll x)`：`A[i] += x` を行う
 - `ll sum(ll r)`：`sum(A[:r])` を求める
 - `ll sum(ll l, ll r)`：`sum(A[l:r])` を求める
+- `int lower_bound(ll w)`：`sum(i) >= w` となる最小の正の prefix 長 $i$ を返す。見つからない場合は $n+1$。$n\ge1$ かつ全要素が非負であること。$w\le0$ の返却値は $1$。
+
+添字と区間は $0\le i<n$、$0\le l\le r\le n$。空配列でも空区間の和は $0$。更新値と合計は符号付き64bitに収まる範囲で使う。
 
 計算量 $O(\log n)$ / クエリ
