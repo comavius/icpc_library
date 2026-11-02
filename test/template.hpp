@@ -1,9 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
-using ll = long long;
-const ll INF = LLONG_MAX / 4;
-#define rep(i, a, b) for(ll i = a; i < (b); i++)
-#define all(a) begin(a), end(a)
+#pragma once
+#include "src/template/1template.hpp"
+// Compatibility for headers and judge wrappers that still use sz.
 #define sz(a) ssize(a)
-bool chmin(auto& a, auto b) { return a > b ? a = b, 1 : 0; }
-bool chmax(auto& a, auto b) { return a < b ? a = b, 1 : 0; }

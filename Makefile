@@ -1,10 +1,15 @@
-PHONY: build verify serve
+.PHONY: build verify verify-all test serve
 
 build: notebook.pdf
 
-verify: .verify-helper/timestamps.local.json $(wildcard src/*/* test/* test/*/*)
-	clang-format -i test/*/*.cpp test/*.hpp
+verify:
 	oj-verify run
+
+verify-all:
+	python3 test/verify_all.py
+
+test:
+	python3 test/run.py --unit
 
 URL = "http://127.0.0.1:4000"
 
