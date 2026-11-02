@@ -9,7 +9,7 @@ struct relaxed_multiplication {
          int fftlen = 1 << fg_prefix_ntts.size();
          vector<mint> vf(f.begin(), f.begin() + fftlen);
          vector<mint> vg(g.begin(), g.begin() + fftlen);
-         ntt(vf, false), ntt(vg, false);
+         fft(vf), fft(vg);
          fg_prefix_ntts.emplace_back(vf, vg);
       }
       return fg_prefix_ntts[d];
@@ -29,10 +29,11 @@ struct relaxed_multiplication {
          const auto& [nttf, nttg] = get_fg_prefix_ntt(d);
          vector<mint> tmp(nttf.size());
          for(int i = 0; i < nttf.size(); ++i) tmp[i] = nttf[i] * nttg[i];
-         ntt(tmp, true);
+         fft(tmp, true);
+         mint iz = mint(tmp.size()).inv();
 
-         for(int i = 0; i < n - 1; ++i) h[n + i] += tmp[i] - h[i];  // 回り込みを削除
-         h[n - 1] += tmp[n - 1];
+         for(int i = 0; i < n - 1; ++i) h[n + i] += tmp[i] * iz - h[i];  // 回り込みを削除
+         h[n - 1] += tmp[n - 1] * iz;
       } else {
          // Convolve f[0, 2 * D) * g[n - D, n) -> h[n - 1, n - 1 + D)
 
@@ -43,12 +44,13 @@ struct relaxed_multiplication {
          } else {
             vector<mint> tmpf{f.end() - D, f.end()}, tmpg{g.end() - D, g.end()};
             tmpf.resize(D * 2), tmpg.resize(D * 2);
-            ntt(tmpf, false), ntt(tmpg, false);
+            fft(tmpf), fft(tmpg);
 
             const auto& [nttf, nttg] = get_fg_prefix_ntt(d + 1);
             for(int i = 0; i < tmpf.size(); ++i) { tmpf[i] = tmpf[i] * nttg[i] + tmpg[i] * nttf[i]; }
-            ntt(tmpf, true);
-            for(int i = 0; i < D; ++i) h[n - 1 + i] += tmpf[D - 1 + i];
+            fft(tmpf, true);
+            mint iz = mint(tmpf.size()).inv();
+            for(int i = 0; i < D; ++i) h[n - 1 + i] += tmpf[D - 1 + i] * iz;
          }
       }
 
