@@ -48,8 +48,7 @@ https://github.com/tatyam-prime/ICPC_notebook?tab=readme-ov-file
 ### 行ハッシュ
 
 C++ の各行に累積ハッシュを表示する機能があります。
-[NachiaVivias/yawn-at-the-top](https://github.com/NachiaVivias/yawn-at-the-top)
-の行ハッシュ方式を参考にしています。作者の NachiaVivias さんに感謝します。
+[NachiaVivias/yawn-at-the-top](https://github.com/NachiaVivias/yawn-at-the-top)の行ハッシュ方式を参考にしています。
 
 ### oj-verify で verify
 
