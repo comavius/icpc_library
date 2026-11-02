@@ -1,6 +1,9 @@
 node_modules/
 .DS_Store
 .vscode/
+.verify-helper/cache/
+.verify-helper/timestamps.local.json
+__pycache__/
 .verify-helper/docs/static/base.css
 .verify-helper/docs/static/notebook.css
 .verify-helper/docs/static/notebook.html
