@@ -1,5 +1,5 @@
 
-// (length, l, r)
+// (period, l, r), [l, r): maximal run with its least period
 template<typename T> vector<array<int, 3>> enum_runs(const vector<T>& s) {
    int n = si(s);
    vector<array<int, 3>> res;
