@@ -7,7 +7,7 @@ vector<edge> eulerian_path(vector<edge> es, int s, bool directed = false) {
    fore(e, es) chmax(n, max(e.x, e.y) + 1);
    vector<vector<pair<edge, int>>> g(n);
    for(auto& e : es) {
-      int p = si(g[e.y]);
+      int p = si(g[e.y]) + (e.x == e.y);
       g[e.x].emplace_back(e, p);
       if(!directed) {
          int q = si(g[e.x]) - 1;
@@ -34,5 +34,6 @@ vector<edge> eulerian_path(vector<edge> es, int s, bool directed = false) {
    ord.pop_back();
    reverse(begin(ord), end(ord));
    if(si(ord) != si(es)) return {};
+   rep(i, 1, si(ord)) if(ord[i - 1].y != ord[i].x) return {};
    return ord;
 }
