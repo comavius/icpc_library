@@ -10,5 +10,5 @@ ll extgcd(ll a, ll b, ll& x, ll& y) {
 ll inv_mod(ll x, ll md) {
    ll y, z;
    extgcd(x, md, y, z);
-   return (y % md + md) % md;
+   return y < 0 ? y + md : y;
 }
