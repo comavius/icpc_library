@@ -2,9 +2,9 @@
 // sa 長さ n : s[sa[0]:] < s[sa[1]:] < … < s[sa[n-1]:]
 // lcp 長さ n-1 : lcp[i] = LCP(s[sa[i]:], s[sa[i+1]:])
 auto SA(string s) {
-   ll n = si(s) + 1, lim = 256;
-   // assert(lim > ranges::max(s));
-   vector<ll> sa(n), lcp(n), x(all(s) + 1), y(n), ws(max(n, lim)), rk(n);
+   ll n = si(s) + 1, lim = 257;
+   vector<ll> sa(n), lcp(n), x(n), y(n), ws(max(n, lim)), rk(n);
+   rep(i, n - 1) x[i] = (unsigned char)s[i] + 1;
    iota(all(sa), 0);
    for(ll j = 0, p = 0; p < n; j = max(1LL, j * 2), lim = p) {
       p = j;
@@ -25,9 +25,9 @@ auto SA(string s) {
    rep(i, 1, n) rk[sa[i]] = i;
    for(ll i = 0, k = 0; i < n - 1; lcp[rk[i++]] = k) {
       if(k) k--;
-      while(s[i + k] == s[sa[rk[i] - 1] + k]) k++;
+      while(i + k < n - 1 && sa[rk[i] - 1] + k < n - 1 && s[i + k] == s[sa[rk[i] - 1] + k]) k++;
    }
    sa.erase(begin(sa));
-   lcp.erase(begin(lcp));
+   lcp.erase(begin(lcp), begin(lcp) + min(2LL, n));
    return pair{sa, lcp};
 }

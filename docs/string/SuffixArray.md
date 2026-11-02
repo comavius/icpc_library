@@ -9,7 +9,8 @@ documentation_of: //src/string/SuffixArray.hpp
 - `pair<vector<ll>, vector<ll>> SA(string s)`：文字列 $s$ の Suffix Array と LCP Array の組を返す．
     - Suffix Array：`[0, 1, …, n-1].sort(key=(i => s[i:]))`
     - LCP Array：`lcp[i] = LCP(s[sa[i]:], s[sa[i+1]:])`
-    - `lim` には $s$ の文字種の最大値を指定する
+    - LCPの長さは `max(0,n-1)`。空文字列では両配列とも空。
+    - 入力は0〜255のバイト列。内部では1〜256にずらして終端0と区別する。
     - $O(n \log n)$ 時間
 
 ## ベンチマーク
