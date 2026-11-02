@@ -93,7 +93,7 @@ struct fps {
    fps sqrt(int n) const {
       assert(freq(0).x == 1);
       fps f = pre(n + 1);
-      fps g({1});
+      fps g(vm{1});
       for(int i = 1; i < n; i *= 2) { g = (g + f.pre(2 * i) * g.inv(2 * i)) * mint((mod + 1) / 2); }
       return g.pre(n + 1);
    }
@@ -117,7 +117,7 @@ struct fps {
       return fps(n);
    }
    fps pow_mod(ll n, const fps& mod) {
-      fps x = *this, r = {{1}};
+      fps x = *this, r(vm{1});
       while(n) {
          if(n & 1) r = r * x % mod;
          x = x * x % mod;
