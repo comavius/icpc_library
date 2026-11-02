@@ -6,6 +6,6 @@ int main() {
    cin.tie(0)->sync_with_stdio(0);
    string S;
    cin >> S;
-   auto z = Z(S);
+   auto z = z_algorithm(vector<char>(all(S)));
    rep(i, 0, sz(S)) cout << z[i] << " \n"[i + 1 == sz(S)];
 }
