@@ -5,10 +5,12 @@ pll crt(const vl& b, const vl& c) {
    rep(i, n) {
       ll g, im, x;
       g = extgcd(m, c[i], im, x);
-      if((b[i] - r) % g) return {0, -1};
-      ll tmp = (b[i] - r) / g * im % (c[i] / g);
-      r += m * tmp;
-      m *= c[i] / g;
+      i128 d = i128(b[i]) - r;
+      if(d % g) return {0, -1};
+      ll tmp = d / g * im % (c[i] / g), nm = m * (c[i] / g);
+      r = (i128(r) + i128(m) * tmp) % nm;
+      m = nm;
+      if(r < 0) r += m;
    }
-   return {(r % m + m) % m, m};
+   return {r, m};
 }
