@@ -2,7 +2,6 @@
 #include "test/template.hpp"
 #include "src/math/ExtGCD.hpp"
 
-using i128 = __int128_t;
 i128 abs(i128 x) { return x < 0 ? -x : x; }
 int main() {
    mt19937_64 rnd;

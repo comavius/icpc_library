@@ -54,6 +54,17 @@ C++ の各行に累積ハッシュを表示する機能があります。
 
 1. `make verify`
 
+`make verify` はソースを変更せず、通常の検証日時キャッシュを使って検証します。
+日時キャッシュを使わず全件を検証する場合は `make verify-all` を実行します。
+このコマンドは実行前の local/remote の日時ファイルを成功・失敗にかかわらず復元します。
+両コマンドには `oj-verify`、C++20対応のGCC、Python 3が必要です。
+
+ネットワークを使わない単体テストは `python3 test/run.py --unit`（または `make test`）で実行します。
+`*.unit.test.cpp` を自動で発見し、毎回新規コンパイルしてassertとHello World出力を確認します。
+個別の検証は `python3 test/run.py test/template.test.cpp test/math/ExtGCD.test.cpp` のように指定します。
+入出力を持つjudge問題のラッパーはこのコマンドではコンパイルだけを確認するため、実際のケースの検証にはoj-verifyを使ってください。
+発見対象の一覧は `python3 test/run.py --list` で確認できます（`BIT.test.2.cpp`も対象です）。
+
 ### oj-verify ページを生成
 
 1. `make serve`
