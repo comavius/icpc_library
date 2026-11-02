@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - main
+  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -29,8 +30,16 @@ jobs:
 
     - name: Build PDF
       run: make build
+
+    - name: Upload PDF preview
+      if: github.event_name == 'pull_request'
+      uses: actions/upload-artifact@v4
+      with:
+        name: notebook-preview
+        path: notebook.pdf
     
     - name: commit PDF
+      if: github.event_name != 'pull_request'
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
