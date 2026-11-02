@@ -38,7 +38,7 @@ struct MCF {
             }
          }
          if(cost[t] == INFL) return -1;
-         rep(i, n) pot[i] += cost[i];
+         rep(i, n) if(cost[i] != INFL) pot[i] += cost[i];
          ll addflow = f;
          for(int v = t; v != s; v = pv[v]) chmin(addflow, g[pv[v]][pe[v]].cap);
          f -= addflow;

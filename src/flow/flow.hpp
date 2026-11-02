@@ -13,7 +13,7 @@ template<typename T> struct Dinic {
    vector<int> c, iter;
    Dinic(int V) : INF(numeric_limits<T>::max()), g(V) {}
    void add_edge(int from, int to, T cap, int idx = -1) {
-      g[from].emplace_back((edge){to, cap, si(g[to]), false, idx});
+      g[from].emplace_back((edge){to, cap, si(g[to]) + (from == to), false, idx});
       g[to].emplace_back((edge){from, 0, si(g[from]) - 1, true, idx});
    }
 
