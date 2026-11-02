@@ -9,7 +9,7 @@ verify-all:
 	python3 test/verify_all.py
 
 test:
-	python3 test/run.py --unit
+	oj-verify run $(wildcard test/*.unit.test.cpp test/*/*.unit.test.cpp)
 
 URL = "http://127.0.0.1:4000"
 
