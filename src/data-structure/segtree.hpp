@@ -1,5 +1,5 @@
 template<class S, S (*op)(S, S), S (*e)()> struct segtree {
-   segtree(int n) : segtree(vector<S>(n, e())) {}
+   segtree(int n = 0) : segtree(vector<S>(n, e())) {}
    segtree(const vector<S>& v) : n(si(v)) {
       s = bit_ceil(unsigned(n));
       log = countr_zero(unsigned(s));
