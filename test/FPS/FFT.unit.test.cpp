@@ -3,7 +3,7 @@
 #include "src/modint/modint.hpp"
 #include "src/FPS/FFT.hpp"
 
-// Independent integer arithmetic, without mint/fft/mul in the oracle.
+// Official convolution_mod covers products. Supplement empty operands and the raw transform API only.
 ll power_mod(ll a, int e) {
    ll result = 1;
    while(e) {
@@ -33,23 +33,6 @@ int main() {
    check_product({}, {});
    check_product({}, {1, 2});
    check_product({1, 2}, {});
-   check_product({0}, {mod - 1});
-   check_product({mod - 1}, {mod - 1});
-   check_product({1, 2, 3}, {4, 5});
-
-   // Exercise both sides of min(n,m)<=30, and padding across powers of two.
-   for(int n : {1, 2, 29, 30, 31, 32, 33, 63, 64, 65, 127, 128, 129}) {
-      for(int m : {1, 2, 29, 30, 31, 32, 33, 63, 64, 65, 127, 128, 129}) {
-         check_product(random_vector(n), random_vector(m));
-      }
-   }
-   rep(iteration, 100) check_product(random_vector(rng() % 200), random_vector(rng() % 200));
-   check_product(vl(65, 0), vl(65, mod - 1));
-   check_product(vl(65, mod - 1), vl(65, mod - 1));
-   vl impulse(65);
-   impulse.back() = 1;
-   check_product(impulse, random_vector(63));
-
    // Nonempty, power-of-two FFT inputs; the inverse is intentionally unnormalized.
    for(int n = 1; n <= 4096; n *= 2) {
       auto input = random_vector(n);
@@ -70,13 +53,5 @@ int main() {
       rep(i, n) assert(transformed[i].x == input[i] * n % mod);
    }
 
-   // A larger NTT case with an exact O(n+m) oracle for all-one inputs.
-   const int n = 1 << 18, m = 31;
-   auto large = mul(vm(n, 1), vm(m, 1));
-   assert(si(large) == n + m - 1);
-   rep(k, si(large)) {
-      int expected = max(0, min(n - 1, int(k)) - max(0, int(k) - m + 1) + 1);
-      assert(large[k].x == expected);
-   }
    puts("Hello World");
 }
