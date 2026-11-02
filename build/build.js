@@ -4,6 +4,7 @@ const fontsize = "7.4pt";       // フォントサイズ
 const orientation = "portrait";     // portrait (縦長) / landscape (横長)
 const num_columns = 2;          // 何段組みか
 const break_after_toc = "column"; // toc の後に : page (改ページする) / column (改段する) / auto (強制しない)
+const enable_line_hash = true; // C++ の各行に累積 MD5 の先頭2桁を表示する
 const section_order = ["template", //
     "data-structure", "dp", "math","graph", //
      "modint", "FPS", "tree", "flow", "string","geometry","misc", "memo"];   // src/* のフォルダを読み出す順序
@@ -20,6 +21,7 @@ loadLanguages("python");
 loadLanguages("sh");
 const cp = require('child_process');
 const marked = require('marked');
+const { lineHashes } = require('./line-hash');
 
 let codeContent = "";
 let ToCContent = "";
@@ -37,7 +39,7 @@ function addCode(folder, filename) {
 
     // C++ ならハッシュ値を計算
     if (filename.endsWith(".cpp") || filename.endsWith(".hpp")) {
-        var text_hash = cp.execSync(`cat ${folder}/${filename} | sh build/hash.sh`);
+        var text_hash = cp.execFileSync('sh', ['build/hash.sh'], { input: text });
         codeContent += `
         md5: ${text_hash}`;
     }
@@ -51,7 +53,12 @@ function addCode(folder, filename) {
         }
         // prism.js でパース & HTML エンコード
         if (filename.endsWith(".cpp") || filename.endsWith(".hpp")) {
-            return prism.highlight(text, prism.languages.cpp, "cpp");
+            const highlighted = prism.highlight(text, prism.languages.cpp, "cpp");
+            if (!enable_line_hash) return highlighted;
+            const hashes = lineHashes(text);
+            return highlighted.split('\n').map((line, i) =>
+                (hashes[i] ? `${hashes[i]}  ` : '    ') + line
+            ).join('\n');
         }
         if (filename.endsWith(".py")) {
             return prism.highlight(text, prism.languages.python, "python");

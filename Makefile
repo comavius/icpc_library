@@ -24,7 +24,7 @@ serve: build verify
 notebook.pdf: build/base.css build/notebook.css build/notebook.html
 	vivliostyle build build/notebook.html -o notebook.pdf
 
-build/notebook.html: build/build.js $(wildcard src/*/* src/*/*/*) .clang-format
+build/notebook.html: build/build.js build/hash.sh build/line-hash.js $(wildcard src/*/* src/*/*/*) .clang-format
 	clang-format -i $(wildcard src/*/*.hpp src/*/*/*.hpp)
 	node build/build.js
 
