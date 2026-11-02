@@ -3,7 +3,7 @@ template<typename T> struct lrFlow {
    vector<T> in, up;
    int X, Y, n;
    T sum;
-   typename Dinic<T>::edge *p, *q;
+   int p, q;
 
    lrFlow(int n) : n(n), X(n), Y(n + 1), sum(0), in(n), flow(n + 2) {}
 
@@ -26,8 +26,8 @@ template<typename T> struct lrFlow {
 
    bool can_flow(int s, int t) {
       flow.add_edge(t, s, flow.INF);
-      p = &flow.g[t].back();
-      q = &flow.g[s].back();
+      p = si(flow.g[t]) - 1;
+      q = si(flow.g[s]) - 1;
       return can_flow();
    }
 
@@ -47,8 +47,8 @@ template<typename T> struct lrFlow {
 
    T min_flow(int s, int t) {
       if(can_flow(s, t)) {
-         auto ret = flow.INF - p->cap;
-         p->cap = q->cap = 0;
+         auto ret = flow.INF - flow.g[t][p].cap;
+         flow.g[t][p].cap = flow.g[s][q].cap = 0;
          return ret - flow.max_flow(t, s);
       } else {
          return -1;
