@@ -24,6 +24,7 @@ template<typename T> struct M {
       vector c(n, vector<T>(l));
       rep(i, n) rep(j, m) rep(k, l) c[i][k] += (*this)[i][j] * b[j][k];
       a.swap(c);
+      m = l;
       return *this;
    }
    M& operator^=(ll k) {
@@ -39,7 +40,7 @@ template<typename T> struct M {
    M operator+(const M& b) const { return (M(*this) += b); }
    M operator-(const M& b) const { return (M(*this) -= b); }
    M operator*(const M& b) const { return (M(*this) *= b); }
-   M operator^(const M& b) const { return (M(*this) ^= b); }
+   M operator^(ll k) const { return (M(*this) ^= k); }
 };
 template<typename T> pair<int, T> GaussElimination(M<T>& a, bool LE = false) {
    int n = a.n, m = a.m;
