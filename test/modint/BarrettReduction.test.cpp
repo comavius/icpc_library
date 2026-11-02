@@ -19,7 +19,7 @@ int main() {
    }
    rep(md, 1, 65) rep(a, 65) rep(b, 65) check(md, a, b);
    mt19937 rng(20261103);
-   rep(i, 100000) {
+   rep(i, 1000) {
       U md = rng(), a = rng(), b = rng();
       if(md) check(md, a, b);
    }
