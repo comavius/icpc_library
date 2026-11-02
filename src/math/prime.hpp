@@ -37,7 +37,7 @@ ll pollard_single(ll n) {
       st++;
       ll x = st, y = f(x);
       while(true) {
-         ll p = gcd((y - x + n), n);
+         ll p = gcd(abs(y - x), n);
          if(p == 0 || p == n) break;
          if(p != 1) return p;
          x = f(x);
