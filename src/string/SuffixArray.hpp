@@ -28,6 +28,6 @@ auto SA(string s) {
       while(s[i + k] == s[sa[rk[i] - 1] + k]) k++;
    }
    sa.erase(begin(sa));
-   lcp.erase(begin(lcp));
+   lcp.erase(begin(lcp), begin(lcp) + min(2LL, n));
    return pair{sa, lcp};
 }
