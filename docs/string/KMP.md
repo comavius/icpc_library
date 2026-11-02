@@ -9,3 +9,5 @@ documentation_of: //src/string/KMP.hpp
 - `vector<ll> KMP(string s)`：$\text{kmp}[i] := \max\\{ l ≤ i \mid s[:l] = s[(i+1)-l:i+1] \\}$ で定義される配列 $\text{kmp}$ を求める
 
 $O(n)$ 時間
+
+空文字列には空配列を返す。入力は `string`（埋め込みNULを含む）で、整数列を受け取るAPIではない。
