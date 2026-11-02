@@ -18,7 +18,7 @@ mint LinearRecurrence(ll k, fps q, fps p) {
       for(int i = 0; i < t.size(); i += 2) q[i >> 1] = t[i];
       k >>= 1;
    }
-   return ret + p[0];
+   return ret + p[0] / q[0];
 }
 // a * q = 0
 mint kitamasa(ll n, fps q, fps a) {
