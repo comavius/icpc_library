@@ -24,6 +24,7 @@ template<typename T> struct M {
       vector c(n, vector<T>(l));
       rep(i, n) rep(j, m) rep(k, l) c[i][k] += (*this)[i][j] * b[j][k];
       a.swap(c);
+      m = l;
       return *this;
    }
    M& operator^=(ll k) {
@@ -39,12 +40,12 @@ template<typename T> struct M {
    M operator+(const M& b) const { return (M(*this) += b); }
    M operator-(const M& b) const { return (M(*this) -= b); }
    M operator*(const M& b) const { return (M(*this) *= b); }
-   M operator^(const M& b) const { return (M(*this) ^= b); }
+   M operator^(ll k) const { return (M(*this) ^= k); }
 };
 template<typename T> pair<int, T> GaussElimination(M<T>& a, bool LE = false) {
    int n = a.n, m = a.m;
    int rank = 0, je = LE ? m - 1 : m;
-   mint det = 1;
+   T det = 1;
    rep(j, je) {
       int idx = -1;
       rep(i, rank, n) {
@@ -63,14 +64,14 @@ template<typename T> pair<int, T> GaussElimination(M<T>& a, bool LE = false) {
       }
       det *= a[rank][j];
       if(LE && a[rank][j].x != 1) {
-         mint coeff = a[rank][j].inv();
+         T coeff = a[rank][j].inv();
          rep(k, j, m) a[rank][k] *= coeff;
       }
       int is = LE ? 0 : rank + 1;
       rep(i, is, n) {
          if(i == rank) continue;
          if(a[i][j].x) {
-            mint coeff = a[i][j] / a[rank][j];
+            T coeff = a[i][j] / a[rank][j];
             rep(k, j, m) a[i][k] -= a[rank][k] * coeff;
          }
       }
